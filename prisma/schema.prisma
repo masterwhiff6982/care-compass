@@ -50,6 +50,7 @@ model User {
   adoptionPosts AdoptionPost[]
   adoptionReqs  AdoptionRequest[]
   rescueReports RescueReport[]
+  lostFoundPets LostFoundPet[]
   notifications Notification[]
   reviews       Review[]
   provider      ServiceProvider?
@@ -454,3 +455,39 @@ model Review {
   @@unique([userId, providerId])
   @@map("reviews")
 }
+
+// ─────────────────────────────────────────────
+// LOST & FOUND
+// ─────────────────────────────────────────────
+
+enum LostFoundType {
+  LOST
+  FOUND
+}
+
+enum LostFoundStatus {
+  OPEN
+  RESOLVED
+}
+
+model LostFoundPet {
+  id              String         @id @default(cuid())
+  reporterId      String
+  reporter        User           @relation(fields: [reporterId], references: [id], onDelete: Cascade)
+  type            LostFoundType
+  petName         String?
+  species         String
+  description     String?
+  location        String
+  city            String
+  latitude        Float?
+  longitude       Float?
+  imageUrl        String?
+  status          LostFoundStatus @default(OPEN)
+  dateLostOrFound DateTime       @default(now())
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@map("lost_found_pets")
+}
+

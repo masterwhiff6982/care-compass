@@ -28,6 +28,7 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+.env.bak
 
 # vercel
 .vercel
@@ -41,3 +42,7 @@ prisma/migrations/
 
 
 /src/_instructions
+DESIGN.md
+AGENTS.md
+# next-agents-md
+.next-docs/

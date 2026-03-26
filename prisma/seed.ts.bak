@@ -363,6 +363,50 @@ async function main() {
     }
   }
 
+  // ── Lost & Found Pets ────────────────────────────────────────
+  const lostFoundUser = await prisma.user.upsert({
+    where: { email: "owner@carecompass.com" },
+    update: {},
+    create: {
+      clerkId: "seed_owner_1",
+      email: "owner@carecompass.com",
+      name: "Rafiq Hasan",
+      role: "PET_OWNER",
+      city: "Dhaka",
+    },
+  });
+
+  const lostFoundPets = [
+    {
+      type: "LOST",
+      petName: "Buddy",
+      species: "Dog",
+      description: "Golden Retriever missing near Banani Road 11. Wearing a blue collar.",
+      location: "Banani Road 11",
+      city: "Dhaka",
+      status: "OPEN",
+    },
+    {
+      type: "FOUND",
+      species: "Cat",
+      description: "White stray cat found near Dhanmondi Lake. Very friendly.",
+      location: "Dhanmondi Lake",
+      city: "Dhaka",
+      status: "OPEN",
+    },
+  ];
+
+  for (const p of lostFoundPets) {
+    const existing = await prisma.lostFoundPet.findFirst({
+      where: { description: p.description },
+    });
+    if (!existing) {
+      await prisma.lostFoundPet.create({
+        data: { ...p, reporterId: lostFoundUser.id, type: p.type as any, status: p.status as any },
+      });
+    }
+  }
+
   console.log("✅ Database seeded successfully!");
   console.log("   • 2 vet clinics with timeslots");
   console.log("   • 1 grooming studio with timeslots");
@@ -370,6 +414,7 @@ async function main() {
   console.log("   • 1 rescue organization");
   console.log("   • 8 shop products");
   console.log("   • 4 community events");
+  console.log("   • 2 lost & found pet reports");
 }
 
 main()
