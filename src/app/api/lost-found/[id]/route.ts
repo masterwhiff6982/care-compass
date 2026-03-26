@@ -11,7 +11,7 @@ const updateLostFoundSchema = z.object({
   location: z.string().min(1).optional(),
   city: z.string().min(1).optional(),
   imageUrl: z.string().url().optional(),
-  status: z.enum(["OPEN", "RESOLVED", "CLOSED"]).optional(),
+  status: z.enum(["OPEN", "RESOLVED"]).optional(),
   dateLostOrFound: z.string().optional(),
 });
 
