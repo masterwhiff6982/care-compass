@@ -3,6 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { formatDate } from "@/lib/utils";
 import AdoptionRequestForm from "@/components/adoption/AdoptionRequestForm";
+import AdoptionOwnerControls from "@/components/adoption/AdoptionOwnerControls";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
@@ -109,7 +110,8 @@ export default async function AdoptionDetailsPage(props: { params: Promise<{ id:
                 {isOwner ? (
                   <div className="bg-blue-50 text-blue-800 p-4 rounded-xl border border-blue-100">
                     <p className="font-medium">You posted this pet.</p>
-                    <p className="text-sm mt-1">You have {post.requests.length} pending request(s).</p>
+                    <p className="text-sm mt-1 mb-2">You have {post.requests.length} pending request(s).</p>
+                    <AdoptionOwnerControls postId={post.id} currentStatus={post.status} />
                   </div>
                 ) : post.status !== "OPEN" ? (
                   <div className="bg-gray-100 text-gray-600 p-4 rounded-xl text-center">
