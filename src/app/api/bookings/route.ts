@@ -56,8 +56,8 @@ export async function POST(req: NextRequest) {
         userId: user.id,
         type: "BOOKING_CONFIRMED",
         title: "Booking Confirmed",
-        message: `Your ${parsed.data.type.replace("_", " ").toLowerCase()} for ${newBooking.pet.name} is confirmed.`,
-        link: `/bookings`,
+        message: `Your ${parsed.data.type.replace("_", " ").toLowerCase()} for ${newBooking.pet.name} has been confirmed.`,
+        link: "/bookings", 
       },
     });
 
