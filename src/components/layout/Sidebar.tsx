@@ -17,8 +17,11 @@ import {
   Bell,
   Settings,
   LogOut,
+<<<<<<< HEAD
   Wallet,
   Search
+=======
+>>>>>>> 5890b2f (feat: added adopted status tag and finalized pet page logic)
 } from "lucide-react";
 
 const NAV_ITEMS = [
@@ -27,7 +30,10 @@ const NAV_ITEMS = [
     items: [
       { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
       { href: "/pets", icon: PawPrint, label: "My Pets" },
+<<<<<<< HEAD
       { href: "/expenses", icon: Wallet, label: "Expenses" },
+=======
+>>>>>>> 5890b2f (feat: added adopted status tag and finalized pet page logic)
       { href: "/bookings", icon: CalendarDays, label: "Bookings", badge: 3 },
       { href: "/shop/orders", icon: ShoppingCart, label: "Orders" },
     ],
@@ -51,7 +57,10 @@ const NAV_ITEMS = [
       { href: "/events", icon: CalendarCheck, label: "Events" },
       { href: "/adoption", icon: Heart, label: "Adoption" },
       { href: "/rescue", icon: AlertTriangle, label: "Rescue" },
+<<<<<<< HEAD
       { href: "/lost-found", icon: Search, label: "Lost & Found" }
+=======
+>>>>>>> 5890b2f (feat: added adopted status tag and finalized pet page logic)
     ],
   },
   {
