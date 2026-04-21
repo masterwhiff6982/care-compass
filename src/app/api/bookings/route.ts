@@ -62,13 +62,20 @@ export async function POST(req: NextRequest) {
   }
 
   const booking = await prisma.$transaction(async (tx) => {
+    const { homeAddress, notes, ...restData } = parsed.data;
+    
+    let combinedNotes = notes || null;
+    if (homeAddress) {
+      combinedNotes = combinedNotes ? `${combinedNotes}\nHome Address: ${homeAddress}` : `Home Address: ${homeAddress}`;
+    }
+
     const newBooking = await tx.booking.create({
       data: {
-        ...parsed.data,
+        ...restData,
+        notes:         combinedNotes,
         userId:        user.id,
         status:        "CONFIRMED",
         isHomeService: parsed.data.isHomeService ?? false,
-        homeAddress:   parsed.data.homeAddress ?? null,
       },
       include: { provider: true, pet: true, timeslot: true },
     });
@@ -111,7 +118,7 @@ export async function POST(req: NextRequest) {
     dateTime,
     bookingId:       booking.id,
     isHomeService:   booking.isHomeService,
-    homeAddress:     booking.homeAddress ?? undefined,
+    homeAddress:     parsed.data.homeAddress ?? undefined,
   }).catch((err) => console.error("Booking email error:", err));
 
   return NextResponse.json(booking, { status: 201 });
