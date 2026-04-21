@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY!);
+const resend = new Resend(process.env.RESEND_API_KEY || "re_dummy_placeholder_for_build");
 
 const FROM = "Pet CareCompass <notifications@carecompass.com>";
 // During dev/testing with Resend free tier you can use:
